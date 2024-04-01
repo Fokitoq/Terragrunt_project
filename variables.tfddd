@@ -1,0 +1,19 @@
+
+variable "bucket" {
+  description = "The name of the S3 bucket where Terraform state will be stored"
+  type        = string
+  default     = "vprofile-kops-state22"
+}
+
+variable "key" {
+  description = "The key/path within the bucket where Terraform state will be stored"
+  type        = string
+  default     = "terraform_dummy/terraform.tfstate"
+}
+
+variable "region" {
+  description = "The AWS region where the S3 bucket is located"
+  type        = string
+  default     = "us-east-1"
+}
+
