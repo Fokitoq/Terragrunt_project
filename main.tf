@@ -21,16 +21,17 @@ module "autoscaling" {
   vpc_id      = module.vpc.vpc_id
   subnet_ids   = module.vpc.subnet_ids
   ASG_launch_config = module.ec2.ASG_launch_config
+  lb_target_group_arn = module.alb.lb_target_group_arn
+
 }
 
 
 module "alb" {
   source = "./alb"
-
-sg_alb       = module.sg.elb_sg_id
+vpc_id      = module.vpc.vpc_id
+elb_sg_id       = module.sg.elb_sg_id
 subnet_ids   = module.vpc.subnet_ids
-autoscaling_group_name = module.autoscaling.autoscaling_group_name
-lb_target_group_arn = module.autoscaling.lb_target_group_arn
+
 
 }
 

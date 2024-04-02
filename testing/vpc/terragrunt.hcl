@@ -9,27 +9,19 @@ include "env" {
   merge_strategy = "no_merge"
 }
 
+
+
 # Configure Terraform backend settings
 terraform {
-  source = "../../../cloudwatch"
+  source = "../../vpc"
 }
+
 
 # Define variables specific to this environment
 inputs = {
-
-  autoscaling_group_name = dependency.autoscaling.outputs.autoscaling_group_name
-
-  env = include.env.locals.env
-
-  # Email to subscribe about scale notifications
-  sns_email = ["dev@gmail.com"]
-}
-
-
-dependency "autoscaling" {
-  config_path = "../autoscaling"
-  mock_outputs = {
-    autoscaling_group_name = "temp"
-  }
-  
+    # VPC related vars
+env = include.env.locals.env
+azs = ["us-east-1a", "us-east-1b"]
+vpc_cidr_block = "10.30.0.0/16"
+public_subnet_cidrs = ["10.30.1.0/24", "10.30.2.0/24"]
 }

@@ -22,7 +22,7 @@ inputs = {
   env = include.env.locals.env
 
   # Email to subscribe about scale notifications
-  sns_email = ["dev@gmail.com"]
+  sns_email = ["testing@gmail.com"]
 }
 
 

@@ -11,25 +11,26 @@ include "env" {
 
 # Configure Terraform backend settings
 terraform {
-  source = "../../../cloudwatch"
+  source = "../../../ec2"
 }
 
 # Define variables specific to this environment
 inputs = {
 
-  autoscaling_group_name = dependency.autoscaling.outputs.autoscaling_group_name
+env = include.env.locals.env
+instance_sg_id = dependency.sg.outputs.instance_sg_id
 
-  env = include.env.locals.env
+        # Launch template vars
+image_id = "ami-0c7217cdde317cfec"
+instance_type = "t2.small"
+key_name = "vprofile-prod-key"
 
-  # Email to subscribe about scale notifications
-  sns_email = ["dev@gmail.com"]
 }
 
 
-dependency "autoscaling" {
-  config_path = "../autoscaling"
+dependency "sg" {
+  config_path = "../sg"
   mock_outputs = {
-    autoscaling_group_name = "temp"
+    instance_sg_id = "temp"
   }
-  
 }
